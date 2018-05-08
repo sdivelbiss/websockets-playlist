@@ -21,5 +21,13 @@ io.on('connection', function(socket){
     });
     socket.on('typing', function(data){
         socket.broadcast.emit('typing', data)
+    });
+    socket.on('stop', function(data){
+        if(!data){
+            socket.broadcast.emit('stop', data)
+        }
+    })
+    socket.on('joined', function(data){
+        socket.broadcast.emit('joined', data)
     })
 });
