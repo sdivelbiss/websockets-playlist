@@ -34,6 +34,10 @@ h2{
     padding: 14px 0px;
     margin: 0 20px;
 }
+#joined p {
+    font-size: 12px;
+    text-align: center;
+}
 
 #output strong{
     color: #575ed8;
