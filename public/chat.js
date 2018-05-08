@@ -7,6 +7,7 @@ let handle = document.getElementById('handle');
 let btn = document.getElementById('send');
 let output = document.getElementById('output');
 let feedback = document.getElementById('feedback');
+let joined = document.getElementById('joined');
 
 //Emit Events
 btn.addEventListener('click', function(){
@@ -17,7 +18,15 @@ btn.addEventListener('click', function(){
 });
 
 message.addEventListener('keypress', function(){
-    socket.emit('typing', handle.value)
+    socket.emit('typing', handle.value);
+    
+});
+message.addEventListener('blur', function(){
+    socket.emit('stop', message.value.length);
+});
+
+handle.addEventListener('blur', function(){
+    socket.emit('joined', handle.value)
 });
 
 //Listen for events
@@ -28,4 +37,11 @@ socket.on('chat', function(data){
 });
 socket.on('typing', function(data){
     feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>'
+})
+socket.on('stop', function(data){
+    feedback.innerHTML = ''
+})
+
+socket.on('joined', function(data){
+    joined.innerHTML += '<p><strong>' + data + '</strong> joined the chat</p>'
 })
